@@ -14,8 +14,8 @@ def index(path):
 @app.route('/post', methods=["GET", "POST"])
 def post():
     print('waiwai')
-    data = request.data
-    return jsonify({'message': 'received'})
+    game = request.json["game"]
+    return jsonify({'message': game['turn']})
 
 
 if __name__ == '__main__':

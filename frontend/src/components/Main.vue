@@ -19,16 +19,6 @@
 </template>
 <script>
 import { GameState } from '@/game_state'
-var $ = require('jquery')
-$.ajax({
-  type: 'POST',
-  url: '/post',
-  data: { data: 10 },
-  contentType: 'application/json',
-  success: function (data) {
-    alert(data.message)
-  },
-})
 export default {
   components: {
     // TopPanel: () => import("./board/TopPanel"),
@@ -48,6 +38,16 @@ export default {
   },
   methods: {
     select(i, j) {
+      var $ = require('jquery')
+      $.ajax({
+        type: 'POST',
+        url: '/post',
+        data: JSON.stringify({ game: this.game }),
+        contentType: 'application/json',
+        success: function (data) {
+          alert(data.message)
+        },
+      })
       if (!this.selected) {
         if (this.game.board[i][j] != this.game.turn) return
         this.selected = [i, j]
