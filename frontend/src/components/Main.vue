@@ -39,9 +39,9 @@ export default {
   },
   methods: {
     AImove(data) {
-      this.game.moveDVec(data.si, data.sj, data.d)
+      this.game.moveDVec(data.si, data.sj, [data.di, data.dj])
     },
-    // 同期処理
+    // 同期
     getMove() {
       return $.ajax({
         type: 'POST',
