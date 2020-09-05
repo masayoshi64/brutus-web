@@ -19,6 +19,7 @@
 </template>
 <script>
 import { GameState } from '@/game_state'
+var $ = require('jquery')
 export default {
   components: {
     // TopPanel: () => import("./board/TopPanel"),
@@ -37,17 +38,20 @@ export default {
     },
   },
   methods: {
-    select(i, j) {
-      var $ = require('jquery')
-      $.ajax({
+    AImove(data) {
+      this.game.moveDVec(data.si, data.sj, data.d)
+    },
+    // 同期処理
+    getMove() {
+      return $.ajax({
         type: 'POST',
         url: '/post',
         data: JSON.stringify({ game: this.game }),
         contentType: 'application/json',
-        success: function (data) {
-          alert(data.message)
-        },
+        async: false,
       })
+    },
+    select(i, j) {
       if (!this.selected) {
         if (this.game.board[i][j] != this.game.turn) return
         this.selected = [i, j]
@@ -76,6 +80,10 @@ export default {
         this.message = '先手勝利です'
       } else if (state === -1) {
         this.message = '後手勝利です'
+      }
+      if (this.game.turn === -1) {
+        this.getMove().done(this.AImove)
+        this.$forceUpdate()
       }
     },
     reset() {

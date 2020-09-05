@@ -11,11 +11,13 @@ def index(path):
     return render_template('index.html')
 
 
-@app.route('/post', methods=["GET", "POST"])
+@app.route('/post', methods=["POST"])
 def post():
-    print('waiwai')
+    print('received')
     game = request.json["game"]
-    return jsonify({'message': game['turn']})
+    board = game['board']
+    # とりあえず一手だけ
+    return jsonify({'si': 0, 'sj': 0, 'd': [1, 0]})
 
 
 if __name__ == '__main__':
