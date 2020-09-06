@@ -15,6 +15,14 @@
         :selected="selected"
         @select="select"
       />
+      <select
+        id="turn"
+        name="turn"
+        @change="selectTurn"
+      >
+        <option value="black">黒番で戦う</option>
+        <option value="white">白番で戦う</option>
+      </select>
     </div>
   </main>
 </template>
@@ -98,6 +106,16 @@ export default {
     reset() {
       this.game = new GameState()
       this.message = ''
+      if (this.game.turn == this.AIcolor) {
+        this.getMove().done(this.AImove)
+      }
+    },
+    selectTurn(event) {
+      const color = event.target.value === 'black' ? 1 : -1
+      this.playerColor = color
+      this.AIcolor = this.playerColor * -1
+      console.log('player color is' + color)
+      this.reset()
     },
   },
 }
@@ -125,5 +143,20 @@ export default {
   background-color: #037003;
   border-color: #037003;
   color: #fff;
+}
+
+select {
+  display: inline-block;
+  max-width: 180px;
+  text-align: left;
+  border: 2px solid #037003;
+  font-size: 16px;
+  color: #037003;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 8px 16px;
+  margin: 10px;
+  border-radius: 4px;
+  transition: 0.4s;
 }
 </style>
