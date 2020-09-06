@@ -3,6 +3,7 @@ from uct.dfpn import dfpn
 from game.game_state import GameState, Winner
 from flask import Flask, render_template
 from flask import request, jsonify
+from uct.dfpn import dfpn
 import json
 import numpy as np
 app = Flask(__name__, static_folder='../frontend/dist/static',
@@ -34,11 +35,15 @@ def post():
     gs.turn = game['turn']
     gs.n_turns = game['n_turns']
 
-    players[gs.turn].gs.board = gs.board.copy()
-    players[gs.turn].gs.turn = gs.turn
-    players[gs.turn].gs.n_turns = gs.n_turns
+    dfpn_r = dfpn(gs)
+    if dfpn_r is not None:
+        best_action = dfpn_r
+    else:
+        players[gs.turn].gs.board = gs.board.copy()
+        players[gs.turn].gs.turn = gs.turn
+        players[gs.turn].gs.n_turns = gs.n_turns
+        best_action, best_wp, arr = players[gs.turn].go()
 
-    best_action, best_wp, arr = players[gs.turn].go()
     si, sj, d = map(int, np.unravel_index(best_action, (7, 5, 9)))
     di, dj = map(int, gs.directionize(d))
     return jsonify({'si': si, 'sj': sj, 'di': di, 'dj': dj})
