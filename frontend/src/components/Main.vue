@@ -59,7 +59,7 @@ export default {
       }
       this.$refs.board.$forceUpdate()
     },
-    // 同期
+    // 非同期
     getMove() {
       return $.ajax({
         type: 'POST',
