@@ -95,13 +95,15 @@ export default {
         return
       }
       this.selected = null
+
+      if (state === 0 && this.game.turn === this.AIcolor) {
+        state = this.getMove().done(this.AImove)
+      }
+
       if (state === 1) {
         this.message = '先手勝利です'
       } else if (state === -1) {
         this.message = '後手勝利です'
-      }
-      if (this.game.turn === this.AIcolor) {
-        this.getMove().done(this.AImove)
       }
     },
     reset() {
