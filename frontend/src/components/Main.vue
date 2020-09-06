@@ -54,6 +54,7 @@ export default {
         this.game.moveDVec(data.si, data.sj, [data.di, data.dj])
       } catch (e) {
         console.log(e)
+        alert('An error occured.')
         this.reset()
       }
       this.$refs.board.$forceUpdate()
@@ -114,7 +115,7 @@ export default {
       const color = event.target.value === 'black' ? 1 : -1
       this.playerColor = color
       this.AIcolor = this.playerColor * -1
-      console.log('player color is' + color)
+      console.log('the player color is ' + color)
       this.reset()
     },
   },
