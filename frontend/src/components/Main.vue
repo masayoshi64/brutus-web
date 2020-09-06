@@ -10,6 +10,7 @@
       <!-- <TopPanel /> -->
       <span>{{ message ? message : turn }}</span>
       <Board
+        ref="board"
         :game="game"
         :selected="selected"
         @select="select"
@@ -30,6 +31,8 @@ export default {
       game: new GameState(),
       selected: null,
       message: '',
+      playerColor: 1,
+      AIcolor: -1,
     }
   },
   computed: {
@@ -39,7 +42,13 @@ export default {
   },
   methods: {
     AImove(data) {
-      this.game.moveDVec(data.si, data.sj, [data.di, data.dj])
+      try {
+        this.game.moveDVec(data.si, data.sj, [data.di, data.dj])
+      } catch (e) {
+        console.log(e)
+        this.reset()
+      }
+      this.$refs.board.$forceUpdate()
     },
     // 同期
     getMove() {
@@ -48,10 +57,11 @@ export default {
         url: '/post',
         data: JSON.stringify({ game: this.game }),
         contentType: 'application/json',
-        async: false,
+        //async: false,
       })
     },
     select(i, j) {
+      if (this.game.turn === this.AIcolor) return
       if (!this.selected) {
         if (this.game.board[i][j] != this.game.turn) return
         this.selected = [i, j]
@@ -81,9 +91,8 @@ export default {
       } else if (state === -1) {
         this.message = '後手勝利です'
       }
-      if (this.game.turn === -1) {
+      if (this.game.turn === this.AIcolor) {
         this.getMove().done(this.AImove)
-        this.$forceUpdate()
       }
     },
     reset() {

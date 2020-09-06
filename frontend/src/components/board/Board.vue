@@ -1,7 +1,15 @@
 <template>
   <div class="board">
-    <div v-for="(row, i) in game.board" :key="i" class="container">
-      <div v-for="(s, j) in row" :key="j" class="frame">
+    <div
+      v-for="(row, i) in game.board"
+      :key="i"
+      class="container"
+    >
+      <div
+        v-for="(s, j) in row"
+        :key="j"
+        class="frame"
+      >
         <Cell
           :stone="s"
           :selected="selected && i === selected[0] && j === selected[1]"
@@ -13,10 +21,10 @@
   </div>
 </template>
 <script>
-import { GameState } from "@/game_state"
+import { GameState } from '@/game_state'
 export default {
   components: {
-    Cell: () => import("./Cell"),
+    Cell: () => import('./Cell'),
   },
   props: {
     game: GameState,
@@ -27,7 +35,7 @@ export default {
   },
   methods: {
     _select(i, j) {
-      this.$emit("select", i, j)
+      this.$emit('select', i, j)
       this.$forceUpdate()
     },
     isLegal(i, j) {
