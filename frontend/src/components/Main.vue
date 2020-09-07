@@ -8,7 +8,7 @@
         >リセット</a>
       </p>
       <!-- <TopPanel /> -->
-      <span>{{ message ? message : turn }}</span>
+      <span>{{ state===0 ? turn : message }}</span>
       <Board
         ref="board"
         :game="game"
@@ -38,20 +38,28 @@ export default {
     return {
       game: new GameState(),
       selected: null,
-      message: '',
       playerColor: 1,
       AIcolor: -1,
+      state: 0,
     }
   },
   computed: {
     turn() {
       return this.game.turn === 1 ? '先手番です' : '後手番です'
     },
+    message() {
+      if (this.state === 1) {
+        return '先手勝利です'
+      } else if (this.state === -1) {
+        return '後手勝利です'
+      }
+      return ''
+    },
   },
   methods: {
     AImove(data) {
       try {
-        this.game.moveDVec(data.si, data.sj, [data.di, data.dj])
+        this.state = this.game.moveDVec(data.si, data.sj, [data.di, data.dj])
       } catch (e) {
         console.log(e)
         alert('An error occured.')
@@ -82,10 +90,9 @@ export default {
         this.selected = null
         return
       }
-      let state
       try {
         console.log(si, sj, d)
-        state = this.game.moveDVec(si, sj, d)
+        this.state = this.game.moveDVec(si, sj, d)
         this.$forceUpdate()
         console.log(this.game.board)
       } catch (e) {
@@ -96,19 +103,13 @@ export default {
       }
       this.selected = null
 
-      if (state === 0 && this.game.turn === this.AIcolor) {
-        state = this.getMove().done(this.AImove)
-      }
-
-      if (state === 1) {
-        this.message = '先手勝利です'
-      } else if (state === -1) {
-        this.message = '後手勝利です'
+      if (this.state === 0 && this.game.turn === this.AIcolor) {
+        this.getMove().done(this.AImove)
       }
     },
     reset() {
       this.game = new GameState()
-      this.message = ''
+      this.state = 0
       if (this.game.turn == this.AIcolor) {
         this.getMove().done(this.AImove)
       }
