@@ -1,15 +1,7 @@
 <template>
   <div class="board">
-    <div
-      v-for="(row, i) in game.board"
-      :key="i"
-      class="container"
-    >
-      <div
-        v-for="(s, j) in row"
-        :key="j"
-        class="frame"
-      >
+    <div v-for="(row, i) in game.board" :key="i" class="container">
+      <div v-for="(s, j) in row" :key="j" class="frame">
         <Cell
           :stone="s"
           :selected="selected && i === selected[0] && j === selected[1]"
