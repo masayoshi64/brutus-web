@@ -1,30 +1,14 @@
 <template>
-  <main>
-    <div class="center">
-      <p>
-        <a
-          class="btn-border"
-          @click="reset"
-        >リセット</a>
-      </p>
-      <!-- <TopPanel /> -->
-      <span>{{ state===0 ? turn : message }}</span>
-      <Board
-        ref="board"
-        :game="game"
-        :selected="selected"
-        @select="select"
-      />
-      <select
-        id="turn"
-        name="turn"
-        @change="selectTurn"
-      >
-        <option value="black">黒番で戦う</option>
-        <option value="white">白番で戦う</option>
-      </select>
-    </div>
-  </main>
+  <div class="center">
+    <!-- <TopPanel /> -->
+    <span>{{ state === 0 ? turn : message }}</span>
+    <Board ref="board" :game="game" :selected="selected" @select="select" />
+    <select id="turn" name="turn" @change="selectTurn">
+      <option value="black">黒番で戦う</option>
+      <option value="white">白番で戦う</option>
+    </select>
+    <a class="btn-border" @click="reset">リセット</a>
+  </div>
 </template>
 <script>
 import { GameState } from '@/game_state'
@@ -45,6 +29,7 @@ export default {
   },
   computed: {
     turn() {
+      if (this.game.turn === this.AIcolor) return 'AIが考慮中です'
       return this.game.turn === 1 ? '先手番です' : '後手番です'
     },
     message() {
@@ -127,6 +112,9 @@ export default {
 <style lang="scss" scoped>
 .center {
   text-align: center;
+  padding: 20px;
+  flex-grow: 1;
+  // flex-basis: 30%;
 }
 .btn-border {
   display: inline-block;
@@ -138,15 +126,14 @@ export default {
   text-decoration: none;
   font-weight: bold;
   padding: 8px 16px;
-  margin: 10px;
   border-radius: 4px;
   transition: 0.4s;
-}
-
-.btn-border:hover {
-  background-color: #037003;
-  border-color: #037003;
-  color: #fff;
+  background-color: #e6e6e6;
+  &:hover {
+    background-color: #037003;
+    border-color: #037003;
+    color: #fff;
+  }
 }
 
 select {
@@ -162,5 +149,6 @@ select {
   margin: 10px;
   border-radius: 4px;
   transition: 0.4s;
+  background-color: #e6e6e6;
 }
 </style>
