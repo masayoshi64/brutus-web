@@ -3,7 +3,12 @@
     :class="{ white: stone <= -1, black: stone >= 1, selected: selected }"
     @click="$emit('click')"
   >
-    <span v-if="selected || legal">★</span>
+    <span v-if="selected || legal">■</span>
+    <img
+      v-if="stone === 2 || stone === -2"
+      :src="require(`@/assets/king_${stone === 2 ? 'black' : 'white'}.png`)"
+      alt="king"
+    />
   </div>
 </template>
 <script>
@@ -36,9 +41,14 @@ export default {
 div {
   min-width: 35px;
   min-height: 35px;
+  text-align: center;
+  img {
+    width: 30px;
+  }
 }
 span {
-  color: green;
+  color: rgb(114, 114, 114);
   margin: auto;
+  font-size: 30px;
 }
 </style>
