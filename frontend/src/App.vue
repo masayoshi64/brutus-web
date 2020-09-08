@@ -28,4 +28,7 @@ export default {
   flex-wrap: wrap;
   justify-content: space-between;
 }
+#app {
+  overflow: hidden;
+}
 </style>
