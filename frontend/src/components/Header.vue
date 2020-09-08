@@ -1,6 +1,8 @@
 <template>
   <header>
-    <h1>BRUTUS AI | 工学博覧会2020</h1>
+    <h1>
+      BRUTUS AI | <a href="https://techexpo-apphys.com/">工学博覧会2020</a>
+    </h1>
     <!-- <img src="/icons/GitHub.png" width="24" height="24"/> -->
   </header>
 </template>
@@ -21,5 +23,9 @@ h1 {
   padding: 0;
   font-size: 20px;
   color: #ffffff;
+  a {
+    color: #ffffff;
+    text-decoration: none;
+  }
 }
 </style>
