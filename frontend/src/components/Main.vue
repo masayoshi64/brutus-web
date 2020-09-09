@@ -77,13 +77,9 @@ export default {
         return
       }
       try {
-        console.log(si, sj, d)
         this.state = this.game.moveDVec(si, sj, d)
         this.$forceUpdate()
-        console.log(this.game.board)
       } catch (e) {
-        console.log(this.game.board)
-        console.log(e)
         this.selected = null
         return
       }
