@@ -49,6 +49,6 @@ div {
 span {
   color: rgb(114, 114, 114);
   margin: 0;
-  font-size: 30px;
+  font-size: 27px;
 }
 </style>
