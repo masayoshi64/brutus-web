@@ -76,7 +76,7 @@ export class GameState {
     if (this.board[nxt[0]][nxt[1]] !== 0) {
       return false
     }
-    if (drc === Drc.f2 && this.board[i][j + direction[1] / 2] === this.turn) {
+    if (drc === Drc.f2 && this.board[i + direction[0] / 2][j] === this.turn) {
       return false
     }
     return true
