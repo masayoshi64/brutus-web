@@ -4,8 +4,9 @@
     <span>{{ state === 0 ? turn : message }}</span>
     <Board ref="board" :game="game" :selected="selected" @select="select" />
     <select id="turn" name="turn" @change="selectTurn">
-      <option value="black">黒番で戦う</option>
-      <option value="white">白番で戦う</option>
+      <option value="black">黒番でAIと戦う</option>
+      <option value="white">白番でAIと戦う</option>
+      <option value="off">AI off</option>
     </select>
     <a class="btn-border" @click="reset">リセット</a>
   </div>
@@ -95,15 +96,18 @@ export default {
     reset() {
       this.game = new GameState()
       this.state = 0
-      if (this.game.turn == this.AIcolor) {
+      if (this.game.turn === this.AIcolor) {
         this.getMove().done(this.AImove)
       }
     },
     selectTurn(event) {
-      const color = event.target.value === 'black' ? 1 : -1
-      this.playerColor = color
-      this.AIcolor = this.playerColor * -1
-      console.log('the player color is ' + color)
+      const color =
+        event.target.value === 'black'
+          ? 1
+          : event.target.value === 'white'
+          ? -1
+          : 0
+      this.AIcolor = color * -1
       this.reset()
     },
   },
