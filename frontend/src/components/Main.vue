@@ -31,13 +31,13 @@ export default {
   computed: {
     turn() {
       if (this.game.turn === this.AIcolor) return 'AIが考慮中です'
-      return this.game.turn === 1 ? '先手番です' : '後手番です'
+      return this.game.turn === 1 ? '黒番です' : '白番です'
     },
     message() {
       if (this.state === 1) {
-        return '先手勝利です'
+        return '黒の勝利です'
       } else if (this.state === -1) {
-        return '後手勝利です'
+        return '白の勝利です'
       }
       return ''
     },
@@ -48,7 +48,7 @@ export default {
         this.state = this.game.moveDVec(data.si, data.sj, [data.di, data.dj])
       } catch (e) {
         console.log(e)
-        alert('An error occured.')
+        alert('エラーが発生しました\nリセットしてください。')
         this.reset()
       }
       this.$refs.board.$forceUpdate()
