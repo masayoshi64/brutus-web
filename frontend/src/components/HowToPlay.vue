@@ -24,10 +24,23 @@
     <p>
       相手の王将の前と左右の3マスに自分の駒がある状態で相手がその駒を寝返らせることができなかった場合に勝利となります。
     </p>
+    <h2>ルール説明・遊び方の動画</h2>
+    <div class="player">
+      <iframe
+        width="560"
+        height="315"
+        src="https://www.youtube.com/embed/ZGVpPtTp63k"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      />
+    </div>
     <h2>AIについて</h2>
     <p>
       AIは<a href="https://techexpo-apphys.com/">工学博覧会2020</a
       >の企画として作成されました。AIの仕組みについて詳しく知りたい方は工学博覧会2020のHPにて説明しております。
+      またライブ配信を<strong>20日(日)14:30〜・21日(月)13:30〜</strong>に予定しておりますので，そちらも是非ご覧ください(
+      <a href="https://techexpo-apphys.com/">HP</a>に掲示予定です)！
     </p>
   </div>
 </template>
@@ -41,6 +54,16 @@
   border-radius: 35px;
   p {
     margin: 10px;
+  }
+  h2 {
+    margin: 30px 0 20px 10px;
+  }
+}
+.player {
+  text-align: center;
+  iframe {
+    max-width: 80vw;
+    max-height: 45vw;
   }
 }
 </style>
