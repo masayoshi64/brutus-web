@@ -141,7 +141,7 @@ export class GameState {
       ) {
         return Winner.minus
       }
-      if (!this.board.some((x) => x.some((y) => y === -1))) {
+      if (!this.existsLegalMove()) {
         return Winner.plus
       }
     } else {
@@ -152,11 +152,26 @@ export class GameState {
       ) {
         return Winner.plus
       }
-      if (!this.board.some((x) => x.some((y) => y === 1))) {
+      if (!this.existsLegalMove()) {
         return Winner.minus
       }
     }
     return Winner.notEnded
+  }
+  existsLegalMove() {
+    for (let i = 0; i < 7; i++) {
+      for (let j = 0; j < 5; j++) {
+        if (this.board[i][j] !== this.turn) {
+          continue
+        }
+        for (let drc = 0; drc < 9; drc++) {
+          if (this.isLegalMove(i, j, drc)) {
+            return true
+          }
+        }
+      }
+    }
+    return false
   }
 }
 
