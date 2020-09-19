@@ -63,7 +63,7 @@
   text-align: center;
   iframe {
     max-width: 80vw;
-    max-height: 45vw;
+    max-height: calc(80vw * 315 / 560);
   }
 }
 </style>
