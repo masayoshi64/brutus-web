@@ -141,6 +141,9 @@ export class GameState {
       ) {
         return Winner.minus
       }
+      if (!this.board.some((x) => x.some((y) => y === -1))) {
+        return Winner.plus
+      }
     } else {
       if (
         this.board[0][1] === 1 ||
@@ -148,6 +151,9 @@ export class GameState {
         this.board[1][2] === 1
       ) {
         return Winner.plus
+      }
+      if (!this.board.some((x) => x.some((y) => y === 1))) {
+        return Winner.minus
       }
     }
     return Winner.notEnded
